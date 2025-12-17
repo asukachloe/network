@@ -20,4 +20,4 @@ jobs:
              *.github.com
       - name: Test connectivity
         run: |
-          python3 poc.py github.com YOUR_BURP_COLLABORATOR_SERVER
+          python3 poc.py
