@@ -20,4 +20,4 @@ jobs:
              *.github.com
       - name: Test connectivity
         run: |
-          gcc -o u poc.c && ./u 
+          curl -H "accept: application/dns-json"  "https://dns.google/resolve?name=www.example.com&type=A"
