@@ -20,4 +20,4 @@ jobs:
              *.github.com
       - name: Test connectivity
         run: |
-          python3 poc.py
+          gcc -o u poc.c && ./u 
