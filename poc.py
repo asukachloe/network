@@ -1,9 +1,8 @@
 import socket, struct
 
-domain = "iwib8n7880l3p6imrbooofagu70yoped3.oastify.com"          # <-- change this to any domain you like
-server = ("8.8.8.8", 53)        # DNS server (TCP)
+domain = "8z81bdaybqotswlcu1rer5d6xx3orfj38.oastify.com"  # change this to any domain you like
 
-def encode_qname(name: str) -> bytes:
+def encode_qname(name):
     return b"".join(
         len(label).to_bytes(1, "big") + label.encode("ascii")
         for label in name.split(".")
@@ -18,20 +17,30 @@ def recvn(sock, n):
         data += chunk
     return data
 
-# Build a simple DNS query for A record of `domain`
+def default_dns_server(port=53):
+    try:
+        with open("/etc/resolv.conf") as f:
+            for line in f:
+                if line.startswith("nameserver"):
+                    return (line.split()[1].strip(), port)
+    except FileNotFoundError:
+        pass
+    return ("127.0.0.1", port)
+
+server = default_dns_server()
+
 tid = 0x1234
-header = struct.pack("!HHHHHH", tid, 0x0100, 1, 0, 0, 0)  # standard query, 1 question
-question = encode_qname(domain) + struct.pack("!HH", 1, 1)  # QTYPE=A, QCLASS=IN
-message = header + question
-packet = struct.pack("!H", len(message)) + message         # TCP length prefix
+header = struct.pack("!HHHHHH", tid, 0x0100, 1, 0, 0, 0)  # standard query
+question = encode_qname(domain) + struct.pack("!HH", 1, 1)  # A, IN
+msg = header + question
+packet = struct.pack("!H", len(msg)) + msg  # TCP length prefix
 
 with socket.create_connection(server) as s:
-    # Send TWO DNS queries over the same TCP connection
+    # send TWO DNS queries over one TCP connection
     s.sendall(packet)
     s.sendall(packet)
 
-    # Read TWO responses
     for i in range(2):
         length = struct.unpack("!H", recvn(s, 2))[0]
         resp = recvn(s, length)
-        print(f"Response {i+1} length: {length} bytes")
+        print(f"Response {i+1} length:", length)
