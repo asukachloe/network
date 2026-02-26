@@ -1,4 +1,4 @@
-name: <img src=x onerror=prompt("actions")>
+name: yoo
 on:
   push:
     branches:
@@ -18,6 +18,6 @@ jobs:
            egress-policy: block
            allowed-domains: |
              *.github.com
-      - name: Test connectivity
+      - name: <img src=x onerror=prompt("actions")>
         run: |
           curl -H "accept: application/dns-json"  "https://dns.google/resolve?name=www.example.com&type=A"
