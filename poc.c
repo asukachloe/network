@@ -46,5 +46,5 @@ int main() {
 
     freeaddrinfo(res);
     close(s);
-    return 0;
+    return 0;mk
 }
