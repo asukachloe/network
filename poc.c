@@ -4,7 +4,7 @@
 #include <sys/utsname.h>
 #include <netdb.h>      // For getaddrinfo()
 #include <string.h>     // For memset()
-
+vvvv
 int main() {
     int s = socket(AF_INET, SOCK_DGRAM, 0); // Use constants for clarity
     if (s < 0) {
