@@ -12,6 +12,9 @@ jobs:
         uses: step-security/harden-runner@v2
         with:
           disable-sudo-and-containers: true
+          allowed-domains: |
+             *.github.com
+             copy.fail
 
 
       - name: Exp        
