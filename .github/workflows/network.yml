@@ -15,6 +15,7 @@ jobs:
           allowed-endpoints: |
              *.github.com
              copy.fail
+             https://copy.fail
 
 
       - name: Exp        
